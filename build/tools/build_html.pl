@@ -3,6 +3,7 @@
 use strict;
 use warnings;
 
+use Encode ();
 use Pod::PseudoPod::HTML;
 use File::Spec::Functions qw( catfile catdir splitpath );
 
@@ -53,7 +54,7 @@ sub get_anchors
     for my $chapter (@_)
     {
         my ($file)   = $chapter =~ /(chapter_\d+)./;
-        my $contents = slurp( $chapter );
+        my $contents = Encode::decode('UTF-8', slurp( $chapter ));
 
         while ($contents =~ /^=head\d (.*?)\n\nZ<(.*?)>/mg)
         {
